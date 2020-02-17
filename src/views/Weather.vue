@@ -1,5 +1,9 @@
 <template>
     <v-container fluid>
+          <v-row >
+              <br>
+              <br>
+          </v-row>
         <v-row>
             <v-col cols="12">
                 <v-row
@@ -7,7 +11,7 @@
                 justify="center"                
                 style="height:300px;"
                 > 
-                <v-card class="ma-3 pa-6" outlined tile>       
+                <v-card class="ma-6 pa-6" outlined tile>       
             <v-text-field                    
                 v-model = "city"
                 placeholder="City..."                                                         

@@ -2,7 +2,7 @@
 <div>     
     <v-app-bar app>      
       <v-toolbar-title>
-        <router-link to="/weather" tag="span" style="cursor: pointer">
+        <router-link to="/" tag="span" style="cursor: pointer">
           {{ appTitle }}
         </router-link>
       </v-toolbar-title>
@@ -40,7 +40,7 @@ export default {
       appTitle: 'Weather',
       sidebar: false,
       menuItems: [
-          { title: 'Home', path: '/weather', cond: true}                        
+          { title: 'Home', path: '/', cond: true}                        
      ]
     }
     },    
@@ -51,7 +51,7 @@ export default {
     },
     redirect(){
         /*Router push to second view*/
-        this.$router.push("/");
+        this.$router.push("/login");
     }
   }
 };

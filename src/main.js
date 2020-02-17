@@ -25,7 +25,7 @@ firebase.initializeApp(firebaseConfig);
 //Add user observe
 firebase.auth().onAuthStateChanged(user => {            
   store.commit("setUser", user);
-  router.push('/');
+  router.push('/login');
 });
 
 new Vue({

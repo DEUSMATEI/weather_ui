@@ -10,17 +10,17 @@ Vue.use(Router);
 
 const isSignedIn = (to, from, next) =>{
     if(store.state.user) next();
-    else next("/")
+    else next("/login")
 }
 
 const isSignedOut = (to, from, next) =>
 {
     if(!store.state.user) next();
-    else next("/weather");
+    else next("/");
 }
 export default new Router({
     routes: [
-        {path: "/", component: LoginView, beforeEnter: isSignedOut},
-        {path: "/weather", component: Weather, beforeEnter: isSignedIn}
+        {path: "/login", component: LoginView, beforeEnter: isSignedOut},
+        {path: "/", component: Weather, beforeEnter: isSignedIn}
     ]
 })

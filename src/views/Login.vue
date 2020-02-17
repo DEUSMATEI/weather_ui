@@ -35,10 +35,16 @@ export default {
      },
      methods: {
           signIn(){
-               /*call signIn method from store */
+               this.$store.dispatch("signIn", {
+                    email: this.email,
+                    password: this.password,
+                    sucCallback: this.onSuccess,
+                    errCallback: this.onError
+               });
           },
           onSuccess(){
                /*Router push to second view*/
+               this.$router.push("/weather");
           },
           onError(err){
                const code = err.code;

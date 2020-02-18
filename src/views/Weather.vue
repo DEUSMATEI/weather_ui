@@ -82,10 +82,8 @@ export default {
      */
     getWeather() {
       try {
-        /*Reset error and weather_available and user_message*/
+        /*Reset error message*/
         this.cityErr = this.stateErr = "";
-        this.weather_available = false;
-        this.user_message = "Please select a city and corresponding state";
 
         /*Check user input */
         if (this.filtered_city == "") {
@@ -110,6 +108,7 @@ export default {
                 this.weather_available = true;
               } else {
                 this.user_message = "Unable to find city";
+                this.weather_available = false;
               }
             })
             .catch(() => {

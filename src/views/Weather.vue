@@ -14,11 +14,13 @@
                 <v-card class="ma-6 pa-6" outlined tile>       
             <v-text-field                    
                 v-model = "city"
-                placeholder="City..."                                                         
+                placeholder="City..."    
+                :error-messages="cityErr"                                                        
                 />
             <v-text-field                    
                 v-model = "state"
-                placeholder="State..."                                                         
+                placeholder="State..."     
+                :error-messages="stateErr"                                                       
                 />        
             <v-btn
                 @click="getWeather"
@@ -52,7 +54,9 @@ export default {
     data(){
         return{
             city: "",
+            cityErr: [],
             state: "",
+            stateErr: [],
             lat: 0,
             lon: 0,
             temp: 0,
@@ -62,14 +66,33 @@ export default {
     },
     methods: {
         getWeather(){
-            axios.get('http://127.0.0.1:5001/weather?city=' + this.city + '&state=' + this.state)
-            .then(response => {
-                this.lat = response["data"]["coord"]["lat"];
-                this.lon = response["data"]["coord"]["lon"];
-                this.temp = response["data"]["temp"];
-                this.wind = response["data"]["wind_speed"];
-                this.weather_available = true;
-            });            
+            try{      
+                /*Reset erro */          
+                this.cityErr = this.stateErr = "";
+                /*Check user input */
+                if(this.city == "")
+                {
+                    this.cityErr = ["Can't be empty"];
+                }   
+                else if(this.state =="")
+                {
+                    this.stateErr = ["Can't be empty"];
+                }else{                    
+                    axios.get('http://127.0.0.1:5001/weather?city=' + this.city.replace("^[a-zA-Z]*$", '') + '&state=' + this.state.replace("^[a-zA-Z]*$", ''))
+                    .then(response => {                    
+                        if(response["data"]["coord"] != null)
+                        {
+                            this.lat = response["data"]["coord"]["lat"];
+                            this.lon = response["data"]["coord"]["lon"];
+                            this.temp = response["data"]["temp"];
+                            this.wind = response["data"]["wind_speed"];
+                            this.weather_available = true;
+                        }                        
+                    }); 
+                }
+            }catch{
+                    this.weather_available = false;
+            }           
         }
     }
 }

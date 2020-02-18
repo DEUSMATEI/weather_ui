@@ -15,7 +15,7 @@
           <v-card class="ma-3 pa-6" outlined tile>
             <template v-if="weather_available">
               <h1>weather</h1>
-              City: {{ filtered_city }}
+              City: {{ display_city }}
               <br />
               Lat: {{ lat }}
               <br />

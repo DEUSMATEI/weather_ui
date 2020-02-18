@@ -52,6 +52,7 @@ export default {
       lon: 0,
       temp: 0,
       wind: 0,
+      display_city: "",
       weather_available: false,
       user_message: "Please select a city and corresponding state"
     };
@@ -106,6 +107,7 @@ export default {
                 this.temp = response["data"]["temp"];
                 this.wind = response["data"]["wind_speed"];
                 this.weather_available = true;
+                this.display_city = this.filtered_city;
               } else {
                 this.user_message = "Unable to find city";
                 this.weather_available = false;

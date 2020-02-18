@@ -1,13 +1,11 @@
-import Vue from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify';
-import store from "./store"
+import Vue from "vue";
+import App from "./App.vue";
+import vuetify from "./plugins/vuetify";
+import store from "./store";
 import router from "./router";
-import firebase from 'firebase'
+import firebase from "firebase";
 
-
-
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 var firebaseConfig = {
   apiKey: "AIzaSyB_POFKvF4VRkhXHnAiHLm_IbmmTQs64Ds",
@@ -24,7 +22,8 @@ firebase.initializeApp(firebaseConfig);
 
 //Add user observe
 firebase.auth().onAuthStateChanged(user => {
-  store.commit("setUser", user);  
+  store.commit("setUser", user);
+  router.push("/login");
 });
 
 new Vue({
@@ -32,4 +31,4 @@ new Vue({
   router,
   store,
   render: h => h(App)
-}).$mount('#app')
+}).$mount("#app");

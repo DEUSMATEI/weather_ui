@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -47,7 +48,5 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ],
-  "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then npm run build ; fi ",
-  "start": "node server.js"
+  ]
 }

@@ -8,28 +8,36 @@
       <v-col cols="12">
         <v-row allign="center" justify="center" style="height:300px;">
           <v-card class="ma-6 pa-6" outlined tile>
-            <v-text-field v-model="city" placeholder="City..." :error-messages="cityErr" />
-            <v-text-field v-model="state" placeholder="State..." :error-messages="stateErr" />
+            <v-text-field
+              v-model="city"
+              placeholder="City..."
+              :error-messages="cityErr"
+            />
+            <v-text-field
+              v-model="state"
+              placeholder="State..."
+              :error-messages="stateErr"
+            />
             <v-btn @click="getWeather" color="primary" block>See Weather</v-btn>
           </v-card>
           <v-card class="ma-3 pa-6" outlined tile>
             <template v-if="weather_available">
               <h1>weather</h1>
-              City: {{city}}
+              City: {{ filtered_city }}
               <br />
-              Lat: {{lat}}
+              Lat: {{ lat }}
               <br />
-              Lon: {{lon}}
+              Lon: {{ lon }}
               <br />
-              Temperature: {{temp}} &#8451;
+              Temperature: {{ temp }} &#8451;
               <br />
-              Wind Speed: {{wind}} km/h
+              Wind Speed: {{ wind }} km/h
             </template>
 
             <template v-else>
               <h1>Weather not available</h1>
               <br />
-              {{user_message}}
+              {{ user_message }}
             </template>
           </v-card>
         </v-row>

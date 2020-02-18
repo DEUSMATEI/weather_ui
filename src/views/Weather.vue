@@ -8,16 +8,8 @@
       <v-col cols="12">
         <v-row allign="center" justify="center" style="height:300px;">
           <v-card class="ma-6 pa-6" outlined tile>
-            <v-text-field
-              v-model="city"
-              placeholder="City..."
-              :error-messages="cityErr"
-            />
-            <v-text-field
-              v-model="state"
-              placeholder="State..."
-              :error-messages="stateErr"
-            />
+            <v-text-field v-model="city" placeholder="City..." :error-messages="cityErr" />
+            <v-text-field v-model="state" placeholder="State..." :error-messages="stateErr" />
             <v-btn @click="getWeather" color="primary" block>See Weather</v-btn>
           </v-card>
           <v-card class="ma-3 pa-6" outlined tile>
@@ -64,6 +56,13 @@ export default {
       user_message: "Please select a city and corresponding state"
     };
   },
+  /**
+   * User input is filtered automatically and storred in:
+   * filtered_city and filtered_state
+   *
+   * Only letters, whitespaces and dashes are allowed
+   *
+   */
   computed: {
     filtered_city: function() {
       return this.city.replace(/[^-a-zA-Z\s]/g, "");
@@ -73,12 +72,21 @@ export default {
     }
   },
   methods: {
+    /**
+     * getWeather()
+     *
+     * This function reset error messages then validate user input.
+     * If user input is validated a GET request is made to a backend api.
+     * The result of request is verify the weather data
+     * or error message is diplayed to user
+     */
     getWeather() {
       try {
         /*Reset error and weather_available and user_message*/
         this.cityErr = this.stateErr = "";
         this.weather_available = false;
         this.user_message = "Please select a city and corresponding state";
+
         /*Check user input */
         if (this.filtered_city == "") {
           this.cityErr = ["Can't be empty"];
@@ -93,6 +101,7 @@ export default {
                 this.filtered_state
             )
             .then(response => {
+              //Check if data is valid
               if (response["data"]["coord"] != null) {
                 this.lat = response["data"]["coord"]["lat"];
                 this.lon = response["data"]["coord"]["lon"];
@@ -104,6 +113,7 @@ export default {
               }
             })
             .catch(() => {
+              //An error has occurred during GET request processing
               this.weather_available = false;
               this.user_message = "An error has occurred pleas try again";
             });

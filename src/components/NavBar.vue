@@ -28,9 +28,9 @@ export default {
       menuItems: [{ title: "Home", path: "/", cond: true }]
     };
   },
-
   methods: {
     signOut() {
+      /*Call store function to sign out*/
       this.$store.dispatch("signOut");
     },
     redirect() {

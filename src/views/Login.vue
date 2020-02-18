@@ -36,7 +36,7 @@ export default {
     },
     onSuccess() {
       /*Router push to second view*/
-      this.$router.push("/weather");
+      this.$router.push("/");
     },
     onError(err) {
       const code = err.code;

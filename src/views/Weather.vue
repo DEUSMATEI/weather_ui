@@ -15,6 +15,8 @@
           <v-card class="ma-3 pa-6" outlined tile>
             <template v-if="weather_available">
               <h1>weather</h1>
+              City: {{city}}
+              <br />
               Lat: {{lat}}
               <br />
               Lon: {{lon}}
@@ -25,7 +27,9 @@
             </template>
 
             <template v-else>
-              <h1>Weather not available</h1>Please select a city and corresponding state
+              <h1>Weather not available</h1>
+              <br />
+              {{user_message}}
             </template>
           </v-card>
         </v-row>
@@ -48,27 +52,37 @@ export default {
       lon: 0,
       temp: 0,
       wind: 0,
-      weather_available: false
+      weather_available: false,
+      user_message: "Please select a city and corresponding state"
     };
+  },
+  computed: {
+    filtered_city: function() {
+      return this.city.replace(/[^a-zA-Z]/g, "");
+    },
+    filtered_state: function() {
+      return this.state.replace(/[^a-zA-Z]/g, "");
+    }
   },
   methods: {
     getWeather() {
       try {
-        /*Reset erro */
-
+        /*Reset error and weather_available and user_message*/
         this.cityErr = this.stateErr = "";
+        this.weather_available = false;
+        this.user_message = "Please select a city and corresponding state";
         /*Check user input */
-        if (this.city == "") {
+        if (this.filtered_city == "") {
           this.cityErr = ["Can't be empty"];
-        } else if (this.state == "") {
+        } else if (this.filtered_state == "") {
           this.stateErr = ["Can't be empty"];
         } else {
           axios
             .get(
               "https://python-api-weather.herokuapp.com/weather?city=" +
-                this.city.replace("^[a-zA-Z]*$", "") +
+                this.filtered_city +
                 "&state=" +
-                this.state.replace("^[a-zA-Z]*$", "")
+                this.filtered_state
             )
             .then(response => {
               if (response["data"]["coord"] != null) {
@@ -77,11 +91,18 @@ export default {
                 this.temp = response["data"]["temp"];
                 this.wind = response["data"]["wind_speed"];
                 this.weather_available = true;
+              } else {
+                this.user_message = "Unable to find city";
               }
+            })
+            .catch(() => {
+              this.weather_available = false;
+              this.user_message = "An error has occurred pleas try again";
             });
         }
       } catch {
         this.weather_available = false;
+        this.user_message = "An error has occurred pleas try again";
       }
     }
   }

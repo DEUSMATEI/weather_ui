@@ -78,7 +78,7 @@ export default {
                 {
                     this.stateErr = ["Can't be empty"];
                 }else{                    
-                    axios.get('http://127.0.0.1:5001/weather?city=' + this.city.replace("^[a-zA-Z]*$", '') + '&state=' + this.state.replace("^[a-zA-Z]*$", ''))
+                    axios.get('https://python-api-weather.herokuapp.com/weather?city=' + this.city.replace("^[a-zA-Z]*$", '') + '&state=' + this.state.replace("^[a-zA-Z]*$", ''))
                     .then(response => {                    
                         if(response["data"]["coord"] != null)
                         {

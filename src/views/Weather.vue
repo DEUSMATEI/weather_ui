@@ -119,7 +119,7 @@ export default {
         }
       } catch {
         this.weather_available = false;
-        this.user_message = "An error has occurred pleas try again";
+        this.user_message = "An error has occurred please try again";
       }
     }
   }

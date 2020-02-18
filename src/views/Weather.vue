@@ -58,10 +58,10 @@ export default {
   },
   computed: {
     filtered_city: function() {
-      return this.city.replace(/[^a-zA-Z]/g, "");
+      return this.city.replace(/[^-a-zA-Z\s]/g, "");
     },
     filtered_state: function() {
-      return this.state.replace(/[^a-zA-Z]/g, "");
+      return this.state.replace(/[^-a-zA-Z\s]/g, "");
     }
   },
   methods: {
